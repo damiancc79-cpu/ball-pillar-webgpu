@@ -1,0 +1,174 @@
+:root {
+  color-scheme: dark;
+  font-family: "Courier New", ui-monospace, SFMono-Regular, Menlo, monospace;
+  background: #05070d;
+  color: #ffe5a3;
+  font-synthesis: none;
+  text-rendering: geometricPrecision;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  width: 100%;
+  min-width: 320px;
+  min-height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: #080b14;
+}
+
+body {
+  min-height: 100vh;
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+}
+
+#app > canvas {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  max-width: 100vw;
+  max-height: 100vh;
+  background: #8290b1;
+}
+
+#app[data-crt="false"] .game-ui::before {
+  opacity: 0;
+}
+
+#app[data-dither="false"] > canvas {
+  image-rendering: auto;
+}
+
+#app[data-jitter="true"] > canvas {
+  animation: signal-jitter 0.16s steps(2, end) infinite;
+}
+
+#app[data-warp="true"] > canvas {
+  filter: saturate(0.96) contrast(1.025);
+}
+
+@keyframes signal-jitter {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(0.35px, -0.25px);
+  }
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid #fff2b8;
+  outline-offset: 3px;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.game-ui {
+  position: fixed;
+  z-index: 10;
+  inset: 0;
+  pointer-events: none;
+  isolation: isolate;
+}
+
+.game-ui::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  content: "";
+  opacity: 0.3;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgb(255 255 255 / 0.025) 0,
+    rgb(255 255 255 / 0.025) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+  mix-blend-mode: screen;
+}
+
+.boot-panel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(86vw, 620px);
+  padding: clamp(1.4rem, 5vw, 3.3rem);
+  transform: translate(-50%, -50%);
+  border: 1px solid rgb(255 189 80 / 0.75);
+  background: linear-gradient(135deg, rgb(15 18 32 / 0.92), rgb(57 29 22 / 0.84)), #0a0d15;
+  box-shadow:
+    0 0 0 5px rgb(9 9 15 / 0.5),
+    0 1.4rem 5rem rgb(0 0 0 / 0.55),
+    inset 0 0 3rem rgb(255 115 45 / 0.11);
+  color: #ffe4a5;
+  text-align: center;
+  pointer-events: auto;
+}
+
+.boot-panel h1 {
+  margin: 0;
+  color: #fff0c3;
+  font-size: clamp(2rem, 7vw, 4.6rem);
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  line-height: 0.92;
+  text-shadow: 3px 3px 0 #8e2c1d;
+}
+
+.boot-panel p {
+  margin: 1.15rem 0 0;
+  color: #e6b37b;
+  font-size: 0.78rem;
+  letter-spacing: 0.13em;
+  line-height: 1.55;
+}
+
+.boot-panel output {
+  display: block;
+  margin-top: 2rem;
+  padding: 0.7rem;
+  border-top: 1px solid rgb(255 203 116 / 0.42);
+  border-bottom: 1px solid rgb(255 203 116 / 0.42);
+  color: #fff2c8;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+}
+
+.boot-panel__guidance {
+  color: #aaafce !important;
+  letter-spacing: 0.04em !important;
+}
+
+@media (max-width: 600px) {
+  .boot-panel h1 {
+    font-size: 2.4rem;
+  }
+}
